@@ -18,7 +18,7 @@ class ZipResourceMapper {
 
         def name = f.name
         def target = new File(f.parentFile, name+'.gz')
-        if (!target.exists()) {
+        if (!target.exists() || f.lastModified() > target.lastModified()) {
             if (log.debugEnabled) {
                 log.debug "gzipping $f to $target"
             }
