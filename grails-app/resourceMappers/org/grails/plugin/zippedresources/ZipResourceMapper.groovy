@@ -6,7 +6,7 @@ import org.grails.plugin.resource.mapper.MapperPhase
 
 class ZipResourceMapper {
 
-    static defaultExcludes = ['/**/*.png','/**/*.gif','/**/*.jpg','/**/*.jpeg','/**/*.gz','/**/*.zip']
+    static defaultExcludes = ['**/*.png','**/*.gif','**/*.jpg','**/*.jpeg','**/*.gz','**/*.zip']
     
     static phase = MapperPhase.ALTERNATEREPRESENTATION
     
