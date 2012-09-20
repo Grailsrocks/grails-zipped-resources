@@ -44,6 +44,9 @@ class ZipResourceMapper {
             
             // We leave content type as is, but set encoding
             resp.setHeader('Content-Encoding', 'gzip')
+
+            // set Vary headers to enable caching in downstream caches
+            resp.setHeader('Vary', 'Accept-Encoding')
             return true
         }    
     }
