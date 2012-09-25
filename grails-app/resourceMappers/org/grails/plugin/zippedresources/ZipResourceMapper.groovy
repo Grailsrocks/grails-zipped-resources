@@ -6,7 +6,7 @@ import org.grails.plugin.resource.mapper.MapperPhase
 
 class ZipResourceMapper {
 
-    static defaultExcludes = ['/**/*.png','/**/*.gif','/**/*.jpg','/**/*.jpeg','/**/*.gz','/**/*.zip']
+    static defaultExcludes = ['**/*.png','**/*.gif','**/*.jpg','**/*.jpeg','**/*.gz','**/*.zip']
     
     static phase = MapperPhase.ALTERNATEREPRESENTATION
     
@@ -18,21 +18,17 @@ class ZipResourceMapper {
 
         def name = f.name
         def target = new File(f.parentFile, name+'.gz')
-        if (!target.exists()) {
-            if (log.debugEnabled) {
-                log.debug "gzipping $f to $target"
-            }
-            def out = new GZIPOutputStream(new FileOutputStream(target))
-            try {
-                f.withInputStream { out << it }
-            } finally {
-                out.close()
-            }
-        } else {
-            if (log.debugEnabled) {
-                log.debug "Skipping rename of $f as zipped file exists"
-            }
+
+        if (log.debugEnabled) {
+            log.debug "gzipping $f to $target"
         }
+        def out = new GZIPOutputStream(new FileOutputStream(target))
+        try {
+            f.withInputStream { out << it }
+        } finally {
+            out.close()
+        }
+
 
         // Update mapping entry 
         // NOTE: we don't change actualUrl because we want to link to the xxxx.css file
@@ -44,6 +40,9 @@ class ZipResourceMapper {
             
             // We leave content type as is, but set encoding
             resp.setHeader('Content-Encoding', 'gzip')
+
+            // set Vary headers to enable caching in downstream caches
+            resp.setHeader('Vary', 'Accept-Encoding')
             return true
         }    
     }
