@@ -1,10 +1,10 @@
 
 class ZippedResourcesGrailsPlugin {
-    def version = "1.0"
+    def version = "1.0-vary-header"
 
     def grailsVersion = "1.2 > *"
 
-    def dependsOn = [resources:'1.0.RC3 > *']
+    def dependsOn = [resources:'1.0.1 > *']
 
     def loadAfter = ['resources']
     
