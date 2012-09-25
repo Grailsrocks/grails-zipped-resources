@@ -1,10 +1,8 @@
 
 class ZippedResourcesGrailsPlugin {
-    def version = "1.0"
+    def version = "1.0.1"
 
-    def grailsVersion = "1.2 > *"
-
-    def dependsOn = [resources:'1.0.RC3 > *']
+    def grailsVersion = "1.3 > *"
 
     def loadAfter = ['resources']
     
